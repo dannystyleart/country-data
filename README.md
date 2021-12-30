@@ -1,3 +1,5 @@
+[![Node.js CI](https://github.com/dannystyleart/country-data/actions/workflows/node.js.yml/badge.svg)](https://github.com/dannystyleart/country-data/actions/workflows/node.js.yml)
+
 # Description
 
 This application provides a simple solution to find countries with their neighbors having shared borders on land.
