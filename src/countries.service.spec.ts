@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesService } from './countries.service';
+import {
+  CountryListProviderToken,
+  LandborderListProviderToken,
+} from './dataset/constants';
 import mockCountries from './dataset/__fixtures__/countries';
 import mockLandborders from './dataset/__fixtures__/landborders';
 
@@ -9,8 +13,8 @@ describe('CountriesService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        { provide: 'COUNTRY_LIST', useValue: mockCountries },
-        { provide: 'LANDBORDER_LIST', useValue: mockLandborders },
+        { provide: CountryListProviderToken, useValue: mockCountries },
+        { provide: LandborderListProviderToken, useValue: mockLandborders },
         CountriesService,
       ],
     }).compile();
@@ -19,7 +23,7 @@ describe('CountriesService', () => {
   });
 
   describe('getCountries', () => {
-    test('should return all countries provided in COUNTRY_LIST provider', () => {
+    test(`should return all countries provided in ${CountryListProviderToken} provider`, () => {
       expect(service.getCountries()).toBe(mockCountries);
     });
   });

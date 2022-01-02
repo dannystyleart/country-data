@@ -1,9 +1,13 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CountryDto } from 'src/dto/country-dto';
 import * as request from 'supertest';
+import {
+  CountryListProviderToken,
+  LandborderListProviderToken
+} from '../src/dataset/constants';
 import mockCountries from '../src/dataset/__fixtures__/countries';
 import mockLandborders from '../src/dataset/__fixtures__/landborders';
+import { CountryDto } from '../src/dto/country-dto';
 import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
@@ -13,9 +17,9 @@ describe('AppController (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
-      .overrideProvider('COUNTRY_LIST')
+      .overrideProvider(CountryListProviderToken)
       .useValue(mockCountries)
-      .overrideProvider('LANDBORDER_LIST')
+      .overrideProvider(LandborderListProviderToken)
       .useValue(mockLandborders)
       .compile();
 
@@ -76,8 +80,7 @@ describe('AppController (e2e)', () => {
   });
 
   describe('[GET] /api/countries/:country/neighbours should respond correctly', () => {
-    const [Alonia, Nordern, Middelland, Southelle] =
-      mockCountries;
+    const [Alonia, Nordern, Middelland, Southelle] = mockCountries;
 
     test.each`
       case                                 | matchField

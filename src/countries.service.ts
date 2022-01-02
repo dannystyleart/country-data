@@ -4,17 +4,21 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import {
+  CountryListProviderToken,
+  LandborderListProviderToken,
+} from './dataset/constants';
 import { CountryNeighboursDto } from './dto/countries-dto';
 import { CountryDto } from './dto/country-dto';
 
 @Injectable()
 export class CountriesService {
   constructor(
-    @Inject('COUNTRY_LIST')
-    private readonly countryList: any,
+    @Inject(CountryListProviderToken)
+    private readonly countryList: Array<CountryDto>,
 
-    @Inject('LANDBORDER_LIST')
-    private readonly landbordersList: any,
+    @Inject(LandborderListProviderToken)
+    private readonly landbordersList: { [key: string]: Array<string> },
   ) { }
 
   getCountries(): Array<CountryDto> {

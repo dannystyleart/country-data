@@ -2,22 +2,27 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CountriesService } from './countries.service';
+import {
+  CountryListProviderToken,
+  LandborderListProviderToken,
+} from './dataset/constants';
 import countries from './dataset/countries';
 import landBorders from './dataset/landborders';
 
 @Module({
   imports: [],
   controllers: [AppController],
-  providers: [AppService, CountriesService,
+  providers: [
+    AppService,
+    CountriesService,
     {
-      provide: 'COUNTRY_LIST',
+      provide: CountryListProviderToken,
       useValue: countries,
     },
     {
-      provide: 'LANDBORDER_LIST',
+      provide: LandborderListProviderToken,
       useValue: landBorders,
     },
-
   ],
 })
 export class AppModule { }
