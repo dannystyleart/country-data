@@ -2,8 +2,8 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CountryDto } from 'src/dto/country-dto';
 import * as request from 'supertest';
-import mockCountries from '../__fixtures__/countries';
-import mockLandborders from '../__fixtures__/landborders';
+import mockCountries from '../src/dataset/__fixtures__/countries';
+import mockLandborders from '../src/dataset/__fixtures__/landborders';
 import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
@@ -76,7 +76,7 @@ describe('AppController (e2e)', () => {
   });
 
   describe('[GET] /api/countries/:country/neighbours should respond correctly', () => {
-    const [firstCountry, countryWithNoBorders, countryWithBorders] =
+    const [Alonia, Nordern, Middelland, Southelle] =
       mockCountries;
 
     test.each`
@@ -85,13 +85,13 @@ describe('AppController (e2e)', () => {
       ${'sending :country param as iso2'}  | ${'iso2'}
       ${'sending :country param as isoe3'} | ${'iso3'}
     `('when $case and country has no neighbour countries', ({ matchField }) => {
-      const searchValue = countryWithNoBorders[matchField];
+      const searchValue = Alonia[matchField];
 
       return request(app.getHttpServer())
         .get(`/api/countries/${searchValue}/neighbours`)
         .expect(200)
         .expect({
-          country: countryWithNoBorders,
+          country: Alonia,
           neighbours: [],
         });
     });
@@ -102,14 +102,14 @@ describe('AppController (e2e)', () => {
       ${'sending :country param as iso2'}  | ${'iso2'}
       ${'sending :country param as isoe3'} | ${'iso3'}
     `('when $case and country has neighbour countries', ({ matchField }) => {
-      const searchValue = countryWithBorders[matchField];
+      const searchValue = Middelland[matchField];
 
       return request(app.getHttpServer())
         .get(`/api/countries/${searchValue}/neighbours`)
         .expect(200)
         .expect({
-          country: countryWithBorders,
-          neighbours: [countryWithNoBorders, countryWithBorders],
+          country: Middelland,
+          neighbours: [Nordern, Southelle],
         });
     });
 

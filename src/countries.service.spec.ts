@@ -1,16 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesService } from './countries.service';
-
-const mockCountryList = [
-  { name: 'Westernlands', iso2: 'WS', iso3: 'WLS' },
-  { name: 'Crownlands', iso2: 'CL', iso3: 'CRW' },
-  { name: 'Rock', iso2: 'RK', iso3: 'RCK' },
-];
-const mockLandborderList = {
-  WLS: ['CRW'],
-  CRW: [],
-  RCK: ['CRW', 'RCK'],
-};
+import mockCountries from './dataset/__fixtures__/countries';
+import mockLandborders from './dataset/__fixtures__/landborders';
 
 describe('CountriesService', () => {
   let service: CountriesService;
@@ -18,8 +9,8 @@ describe('CountriesService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        { provide: 'COUNTRY_LIST', useValue: mockCountryList },
-        { provide: 'LANDBORDER_LIST', useValue: mockLandborderList },
+        { provide: 'COUNTRY_LIST', useValue: mockCountries },
+        { provide: 'LANDBORDER_LIST', useValue: mockLandborders },
         CountriesService,
       ],
     }).compile();
@@ -29,7 +20,7 @@ describe('CountriesService', () => {
 
   describe('getCountries', () => {
     test('should return all countries provided in COUNTRY_LIST provider', () => {
-      expect(service.getCountries()).toBe(mockCountryList);
+      expect(service.getCountries()).toBe(mockCountries);
     });
   });
 
@@ -37,7 +28,7 @@ describe('CountriesService', () => {
     let randomCountry;
     beforeEach(() => {
       randomCountry =
-        mockCountryList[Math.floor(Math.random() * mockCountryList.length)];
+        mockCountries[Math.floor(Math.random() * mockCountries.length)];
     });
 
     test.each`
@@ -60,6 +51,7 @@ describe('CountriesService', () => {
   });
 
   describe('getCountryNeighbours', () => {
+    const [_, Nordern, Middelland, Southelle] = mockCountries;
     test('should throw error when country not found', () => {
       const search = 'FOO';
       const expectedError = `Could not find country for: ${search}`;
@@ -70,9 +62,9 @@ describe('CountriesService', () => {
     });
 
     test('should return the correct data structure', () => {
-      expect(service.getCountryNeighbours('Westernlands')).toMatchObject({
-        country: { name: 'Westernlands', iso2: 'WS', iso3: 'WLS' },
-        neighbours: [{ name: 'Crownlands', iso2: 'CL', iso3: 'CRW' }],
+      expect(service.getCountryNeighbours(Middelland.name)).toMatchObject({
+        country: Middelland,
+        neighbours: [Nordern, Southelle],
       });
     });
   });
