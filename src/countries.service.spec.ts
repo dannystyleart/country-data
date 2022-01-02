@@ -46,12 +46,14 @@ describe('CountriesService', () => {
       ${'by 3 character matching the iso3 field'} | ${'iso3'}
       ${'by name field'}                          | ${'name'}
     `('should be able to find a country $case', ({ field }) => {
-      expect(service.findCountry(randomCountry[field])).toBe(randomCountry);
+      expect(service.findCountry(randomCountry[field])).toStrictEqual([
+        randomCountry,
+      ]);
     });
 
     test('should throw an error when a country not found', () => {
       const search = 'FOO';
-      const expectedError = `Could not found country matching for: ${search}`;
+      const expectedError = `Could not find country for: ${search}`;
 
       expect(() => service.findCountry(search)).toThrowError(expectedError);
     });
@@ -60,7 +62,7 @@ describe('CountriesService', () => {
   describe('getCountryNeighbours', () => {
     test('should throw error when country not found', () => {
       const search = 'FOO';
-      const expectedError = `Could not found country matching for: ${search}`;
+      const expectedError = `Could not find country for: ${search}`;
 
       expect(() => service.getCountryNeighbours(search)).toThrowError(
         expectedError,

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { CountriesService } from './countries.service';
+import { CountrySearchPathParamDto } from './dto/countries-dto';
 
 const mockCountriesService = () => ({
   getCountries: jest.fn(),
@@ -29,48 +30,25 @@ describe('AppController', () => {
 
   describe('listCountries', () => {
     beforeEach(() => {
-      mockedCountriesService.findCountry.mockClear();
       mockedCountriesService.getCountries.mockClear();
     });
 
     test('should return result of countryService.findCountry when search string provided', () => {
-      const mockedReturnValue = 'return of findCountry()';
-      const testSearchValue = 'hello  ';
-      const expectedMethodParam = testSearchValue.trim();
-
-      mockedCountriesService.findCountry.mockReturnValueOnce(mockedReturnValue);
-
-      expect(appController.listCountries(testSearchValue)).toBe(
-        mockedReturnValue,
-      );
-      expect(mockedCountriesService.findCountry).toHaveBeenCalledWith(
-        expectedMethodParam,
-      );
-      expect(mockedCountriesService.getCountries).not.toHaveBeenCalled();
-    });
-
-    test('should return result of countryService.getCountries when search string is not provided', () => {
-      const mockedReturnValue = 'return of getCountries()';
-      const testSearchValue = '';
-
+      const mockedReturnValue = 'return of countryService.getCountries()';
       mockedCountriesService.getCountries.mockReturnValueOnce(
         mockedReturnValue,
       );
 
-      expect(appController.listCountries(testSearchValue)).toBe(
-        mockedReturnValue,
-      );
-
-      expect(mockedCountriesService.getCountries).toHaveBeenCalledWith();
-      expect(mockedCountriesService.findCountry).not.toHaveBeenCalled();
+      expect(appController.listCountries()).toBe(mockedReturnValue);
+      expect(mockedCountriesService.getCountries).toHaveBeenCalled();
     });
   });
 
   describe('findCountry', () => {
-    test('should return result of countryService.METHOD called correctly', () => {
-      const mockedReturnValue = 'return of findCountry()';
-      const testSearch = 'spacey   ';
-      const expectedMethodParam = testSearch.trim();
+    test('should return result of countryService.findCountry called correctly', () => {
+      const mockedReturnValue = 'return of countryService.findCountry()';
+      const testSearch: CountrySearchPathParamDto = { country: 'spacey   ' };
+      const expectedMethodParam = testSearch.country.trim();
 
       mockedCountriesService.findCountry.mockReturnValueOnce(mockedReturnValue);
 
@@ -82,10 +60,11 @@ describe('AppController', () => {
   });
 
   describe('findCountryNeighbours', () => {
-    test('should return result of countryService.METHOD called correctly', () => {
-      const mockedReturnValue = 'return of getCountryNeighbours()';
-      const testSearch = 'spacey   ';
-      const expectedMethodParam = testSearch.trim();
+    test('should return result of countryService.getCountryNeighhbours called correctly', () => {
+      const mockedReturnValue =
+        'return of countryService.getCountryNeighbours()';
+      const testSearch: CountrySearchPathParamDto = { country: 'spacey   ' };
+      const expectedMethodParam = testSearch.country.trim();
 
       mockedCountriesService.getCountryNeighbours.mockReturnValueOnce(
         mockedReturnValue,

@@ -1,5 +1,11 @@
-import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Country } from './dataset/countries';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { CountryNeighboursDto } from './dto/countries-dto';
+import { CountryDto } from './dto/country-dto';
 
 @Injectable()
 export class CountriesService {
@@ -8,15 +14,15 @@ export class CountriesService {
     private readonly countryList: any,
 
     @Inject('LANDBORDER_LIST')
-    private readonly landbordersList: any
+    private readonly landbordersList: any,
   ) { }
 
-  getCountries(): Array<Country> {
+  getCountries(): Array<CountryDto> {
     return this.countryList;
   }
 
-  findCountry(search: string) {
-    let searchConfig: { field: keyof Country, term: RegExp | string } = {
+  findCountry(search: string): Array<CountryDto> {
+    let searchConfig: { field: keyof CountryDto; term: RegExp | string } = {
       field: 'name',
       term: new RegExp(search, 'ig'),
     };
@@ -34,24 +40,28 @@ export class CountriesService {
         throw new BadRequestException('INVALID SEARCH TERM');
     }
 
-
-    const result = this.countryList.find((country) => {
-      const identifierValue = country[searchConfig.field]
-      if (searchConfig.field === 'name') return (searchConfig.term as RegExp).test(identifierValue)
+    const result = this.countryList.filter((country) => {
+      const identifierValue = country[searchConfig.field];
+      if (searchConfig.field === 'name')
+        return (searchConfig.term as RegExp).test(identifierValue);
       return identifierValue === searchConfig.term;
     });
 
-    if (!result) throw new NotFoundException(`Could not found country matching for: ${search}`)
+    if (!result.length)
+      throw new NotFoundException(`Could not find country for: ${search}`);
 
     return result;
   }
 
-  getCountryNeighbours(search: string) {
-    const country = this.findCountry(search);
-    const neighbours = this.landbordersList[country.iso3].map(this.findCountry.bind(this));
+  getCountryNeighbours(search: string): CountryNeighboursDto {
+    const [country] = this.findCountry(search);
+    const neighbours = this.landbordersList[country.iso3].map((iso3) => {
+      const [countryByIso3] = this.findCountry(iso3);
+      return countryByIso3;
+    });
     return {
       country,
-      neighbours
-    }
+      neighbours,
+    };
   }
 }

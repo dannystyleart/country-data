@@ -1,9 +1,3 @@
-export interface Country {
-  name: string;
-  iso2: string;
-  iso3: string;
-};
-
 export default [
   { name: 'Afghanistan', iso2: 'AF', iso3: 'AFG' },
   { name: 'Åland Islands', iso2: 'AX', iso3: 'ALA' },
@@ -125,7 +119,7 @@ export default [
   { name: 'Kiribati', iso2: 'KI', iso3: 'KIR' },
   { name: 'Kosovo', iso2: 'XK', iso3: 'XXK' },
   {
-    name: "Korea (North)",
+    name: 'Korea (North)',
     iso2: 'KP',
     iso3: 'PRK',
   },
@@ -133,7 +127,7 @@ export default [
   { name: 'Kuwait', iso2: 'KW', iso3: 'KWT' },
   { name: 'Kyrgyzstan', iso2: 'KG', iso3: 'KGZ' },
   {
-    name: "Laos",
+    name: 'Laos',
     iso2: 'LA',
     iso3: 'LAO',
   },
