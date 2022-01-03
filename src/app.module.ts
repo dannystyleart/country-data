@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CountriesService } from './countries.service';
 import {
   CountryListProviderToken,
@@ -13,7 +12,6 @@ import landBorders from './dataset/landborders';
   imports: [],
   controllers: [AppController],
   providers: [
-    AppService,
     CountriesService,
     {
       provide: CountryListProviderToken,
