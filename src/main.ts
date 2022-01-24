@@ -5,7 +5,13 @@ import { AppModule } from './app.module';
 import { createSwaggerDocument } from './swagger.factory';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const corsWhitelist = (process.env.CORS_WHITELIST || '').split('|').filter(Boolean);
+  const app = await NestFactory.create(AppModule, {
+    cors: corsWhitelist.length > 0 && {
+      origin: corsWhitelist,
+    }
+  });
+  console.log(corsWhitelist)
   const port = process.env.PORT || 3000;
   const swaggerTitle = 'Country Neighbours API';
 
