@@ -1,4 +1,7 @@
 [![Node.js CI](https://github.com/dannystyleart/country-data/actions/workflows/node.js.yml/badge.svg)](https://github.com/dannystyleart/country-data/actions/workflows/node.js.yml)
+![NestJS Rest API](https://img.shields.io/badge/NestJS-Rest%20API-green?logo=nestjs)
+![Tested using Jest](https://img.shields.io/badge/Tested%20via%20-Jest-green?logo=jest)
+[![Check API Docs](https://img.shields.io/badge/Check-API%20Doc-green?logo=swagger)](http://country-collection.herokuapp.com/)
 
 # Description
 
