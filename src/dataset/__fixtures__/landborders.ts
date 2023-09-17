@@ -3,4 +3,4 @@ export default {
   NDR: ['MDL'],
   MDL: ['NDR', 'STE'],
   STE: ['MDL'],
-}
+};

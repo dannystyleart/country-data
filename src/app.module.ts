@@ -23,4 +23,4 @@ import landBorders from './dataset/landborders';
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

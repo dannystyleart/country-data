@@ -196,7 +196,19 @@ export default {
   QAT: ['SAU'],
   REU: [], // Island
   ROU: ['UKR', 'MDA', 'BGR', 'SRB'],
-  RUS: ['CHN', 'PRK', 'MNG', 'KAZ', 'AZE', 'GEO', 'UKR', 'BLR', 'LVA', 'EST', 'FIN'],
+  RUS: [
+    'CHN',
+    'PRK',
+    'MNG',
+    'KAZ',
+    'AZE',
+    'GEO',
+    'UKR',
+    'BLR',
+    'LVA',
+    'EST',
+    'FIN',
+  ],
   RWA: ['UGA', 'TZA', 'BDI', 'COD'],
   BLM: [], // Island
   SHN: [], // Island
