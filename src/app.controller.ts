@@ -9,7 +9,7 @@ import { CountryDto } from './dto/country-dto';
 
 @Controller('api')
 export class AppController {
-  constructor(private readonly countryService: CountriesService) { }
+  constructor(private readonly countryService: CountriesService) {}
 
   @Get('/countries')
   @ApiOperation({

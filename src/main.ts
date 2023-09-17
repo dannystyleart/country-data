@@ -5,21 +5,28 @@ import { AppModule } from './app.module';
 import { createSwaggerDocument } from './swagger.factory';
 
 async function bootstrap() {
-  const corsWhitelist = (process.env.CORS_WHITELIST || '').split('|').filter(Boolean);
+  const corsWhitelist = (process.env.CORS_WHITELIST || '')
+    .split('|')
+    .filter(Boolean);
   const app = await NestFactory.create(AppModule, {
     cors: corsWhitelist.length > 0 && {
       origin: corsWhitelist,
-    }
+    },
   });
-  console.log(corsWhitelist)
+  console.log(corsWhitelist);
   const port = process.env.PORT || 3000;
   const swaggerTitle = 'Country Neighbours API';
 
-  SwaggerModule.setup('', app, createSwaggerDocument(app, { title: swaggerTitle }), {
-    customSiteTitle: swaggerTitle
-  });
+  SwaggerModule.setup(
+    '',
+    app,
+    createSwaggerDocument(app, { title: swaggerTitle }),
+    {
+      customSiteTitle: swaggerTitle,
+    },
+  );
 
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(port);
 }

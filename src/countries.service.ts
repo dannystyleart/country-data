@@ -19,14 +19,14 @@ export class CountriesService {
 
     @Inject(LandborderListProviderToken)
     private readonly landbordersList: { [key: string]: Array<string> },
-  ) { }
+  ) {}
 
   getCountries(): Array<CountryDto> {
     return this.countryList;
   }
 
   findCountry(search: string): Array<CountryDto> {
-    let searchConfig: { field: keyof CountryDto; term: RegExp | string } = {
+    const searchConfig: { field: keyof CountryDto; term: RegExp | string } = {
       field: 'name',
       term: new RegExp(search, 'ig'),
     };

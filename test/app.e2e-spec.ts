@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import {
   CountryListProviderToken,
-  LandborderListProviderToken
+  LandborderListProviderToken,
 } from '../src/dataset/constants';
 import mockCountries from '../src/dataset/__fixtures__/countries';
 import mockLandborders from '../src/dataset/__fixtures__/landborders';
