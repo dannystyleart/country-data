@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Country"""
+type Country {
+  iso2: String!
+  iso3: String!
+  name: String!
+}
+
+"""Country neighbors"""
+type CountryNeighours {
+  country: Country!
+  neighbours: [Country!]!
+}
+
+type Query {
+  """List of countries"""
+  allCountry: [Country!]!
+
+  """Find country by name"""
+  findCountry(search: String!): Country!
+
+  """Get neighbouring countries of a country"""
+  getCountryNeighbours(
+    """Country name"""
+    country: String!
+  ): CountryNeighours!
+}
