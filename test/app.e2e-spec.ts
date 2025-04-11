@@ -1,13 +1,13 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
+import mockCountries from '../src/country/dataset/__fixtures__/countries';
+import mockLandborders from '../src/country/dataset/__fixtures__/landborders';
 import {
   CountryListProviderToken,
   LandborderListProviderToken,
-} from '../src/dataset/constants';
-import mockCountries from '../src/dataset/__fixtures__/countries';
-import mockLandborders from '../src/dataset/__fixtures__/landborders';
-import { CountryDto } from '../src/dto/country-dto';
+} from '../src/country/dataset/constants';
+import { CountryDto } from '../src/rest-api/dto/country-dto';
 import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {

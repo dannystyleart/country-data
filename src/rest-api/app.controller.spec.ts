@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { CountriesService } from './countries.service';
+import { CountriesService } from '../country/countries.service';
 import { CountrySearchPathParamDto } from './dto/countries-dto';
 
 const mockCountriesService = () => ({

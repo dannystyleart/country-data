@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { CountriesService } from './countries.service';
+import { CountriesService } from '../country/countries.service';
 import {
   CountryNeighboursDto,
   CountrySearchPathParamDto,

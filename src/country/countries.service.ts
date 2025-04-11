@@ -8,8 +8,8 @@ import {
   CountryListProviderToken,
   LandborderListProviderToken,
 } from './dataset/constants';
-import { CountryNeighboursDto } from './dto/countries-dto';
-import { CountryDto } from './dto/country-dto';
+import { CountryNeighboursDto } from '../rest-api/dto/countries-dto';
+import { CountryDto } from '../rest-api/dto/country-dto';
 
 @Injectable()
 export class CountriesService {
