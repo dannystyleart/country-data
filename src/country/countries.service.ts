@@ -5,28 +5,31 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import {
+  Country,
+  CountryNeighbourhood,
+  LandborderMap,
+} from './countries.interfaces';
+import {
   CountryListProviderToken,
   LandborderListProviderToken,
 } from './dataset/constants';
-import { CountryNeighboursDto } from './dto/countries-dto';
-import { CountryDto } from './dto/country-dto';
 
 @Injectable()
 export class CountriesService {
   constructor(
     @Inject(CountryListProviderToken)
-    private readonly countryList: Array<CountryDto>,
+    private readonly countryList: Array<Country>,
 
     @Inject(LandborderListProviderToken)
-    private readonly landbordersList: { [key: string]: Array<string> },
+    private readonly landbordersList: LandborderMap,
   ) {}
 
-  getCountries(): Array<CountryDto> {
+  getCountries(): Array<Country> {
     return this.countryList;
   }
 
-  findCountry(search: string): Array<CountryDto> {
-    const searchConfig: { field: keyof CountryDto; term: RegExp | string } = {
+  findCountry(search: string): Array<Country> {
+    const searchConfig: { field: keyof Country; term: RegExp | string } = {
       field: 'name',
       term: new RegExp(search, 'ig'),
     };
@@ -57,7 +60,7 @@ export class CountriesService {
     return result;
   }
 
-  getCountryNeighbours(search: string): CountryNeighboursDto {
+  getCountryNeighbours(search: string): CountryNeighbourhood {
     const [country] = this.findCountry(search);
     const neighbours = this.landbordersList[country.iso3].map((iso3) => {
       const [countryByIso3] = this.findCountry(iso3);
