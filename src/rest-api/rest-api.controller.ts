@@ -8,7 +8,7 @@ import {
 import { CountryDto } from './dto/country-dto';
 
 @Controller('api')
-export class AppController {
+export class RestApiController {
   constructor(private readonly countryService: CountriesService) {}
 
   @Get('/countries')

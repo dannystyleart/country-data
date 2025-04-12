@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { CountryModule } from 'src/country/country.module';
-import { AppController } from './app.controller';
+import { RestApiController } from './rest-api.controller';
 
 @Module({
   imports: [CountryModule, RestApiModule],
-  controllers: [AppController],
+  controllers: [RestApiController],
 })
 export class RestApiModule {}

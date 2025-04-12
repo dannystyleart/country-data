@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
+import { RestApiController } from './rest-api.controller';
 import { CountriesService } from '../country/countries.service';
 import { CountrySearchPathParamDto } from './dto/countries-dto';
 
@@ -9,13 +9,13 @@ const mockCountriesService = () => ({
   getCountryNeighbours: jest.fn(),
 });
 
-describe('AppController', () => {
-  let appController: AppController;
+describe('RestApiController', () => {
+  let appController: RestApiController;
   let mockedCountriesService: ReturnType<typeof mockCountriesService>;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
+      controllers: [RestApiController],
       providers: [
         {
           provide: CountriesService,
@@ -25,7 +25,7 @@ describe('AppController', () => {
     }).compile();
 
     mockedCountriesService = app.get(CountriesService);
-    appController = app.get<AppController>(AppController);
+    appController = app.get<RestApiController>(RestApiController);
   });
 
   describe('listCountries', () => {
