@@ -4,7 +4,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CountriesResolver } from './countries.resolver';
-import { CountryModule } from 'src/country/country.module';
+import { CountryModule } from '../country/country.module';
 
 @Module({
   imports: [
