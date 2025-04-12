@@ -1,6 +1,7 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { CountriesService } from '../country/countries.service';
-import { Country, CountryNeighours } from './models/country.model';
+import { Country } from './models/country.model';
+import { CountryNeighours } from './models/countryNeighbour.model';
 
 @Resolver(() => Country)
 export class CountriesResolver {

@@ -11,12 +11,3 @@ export class Country {
   @Field()
   iso3: string;
 }
-
-@ObjectType({ description: 'Country neighbors' })
-export class CountryNeighours {
-  @Field(() => Country)
-  country: Country;
-
-  @Field(() => [Country])
-  neighbours: Country[];
-}
