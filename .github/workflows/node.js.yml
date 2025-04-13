@@ -35,9 +35,7 @@ jobs:
       - name: Run E2E tests
         run: npm run test:e2e
 
-      - name: Run SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectKey: ${{ secrets.SONAR_PROJECT }}
-          organization: ${{ secrets.SONAR_ORG }}
-          token: ${{ secrets.SONAR_TOKEN }}
+      - name: Run Sonar Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
