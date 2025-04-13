@@ -37,5 +37,9 @@ jobs:
 
       - name: Run Sonar Scan
         uses: SonarSource/sonarqube-scan-action@v5
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT }}
+            -Dsonar.organization=${{ secrets.SONAR_ORG }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
